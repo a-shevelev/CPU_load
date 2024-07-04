@@ -1,2 +1,4 @@
 /venv
-/.ide
+/.idea
+/backend/.idea/
+/backend/venv/
