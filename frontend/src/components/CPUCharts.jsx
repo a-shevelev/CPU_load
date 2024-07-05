@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import CPULoadLastHourChart from "./CPULoadLastHourChart";
-//import CPULoadPerMinuteChart from "./CPULoadPerMinuteChart";
 import LineChart from "./LineChart";
 
 const CPUCharts = () => {

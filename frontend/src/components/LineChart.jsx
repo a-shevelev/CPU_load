@@ -49,10 +49,10 @@ const LineChart = ({ data, title }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "520px",
+        height: "900px",
       }}
     >
-      <div style={{ width: "1000px", height: "500px" }}>
+      <div style={{ width: "1200px", height: "800px" }}>
         <span>{title}</span>
         <Line data={chartData} options={chartOptions} />
       </div>
