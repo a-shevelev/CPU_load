@@ -17,7 +17,8 @@ async def save_cpu_load():
 
 async def get_server_status_last_hour():
     last_hour = datetime.now() - timedelta(hours=1)
-    statuses = await ServerStatus.query.where(ServerStatus.timestamp >= last_hour).gino.all()
+    statuses = await ServerStatus.query.where(ServerStatus.timestamp >= last_hour).order_by(ServerStatus.timestamp).gino.all()
+    print(statuses)
     return statuses
 
 
@@ -31,7 +32,6 @@ async def get_average_load_per_minute():
         minute_str = minute.strftime('%Y-%m-%d %H:%M:%S')
         average_loads_per_minute[minute_str].append(load.load)
 
-    print(average_loads_per_minute)
 
 
     average_load_per_minute = {}
@@ -42,15 +42,13 @@ async def get_average_load_per_minute():
         else:
             average_load_per_minute[minute_str] = None
 
-    print(average_load_per_minute)
-
     return average_load_per_minute
 
 
 
 async def get_cpu_load_last_hour():
     last_hour = datetime.now() - timedelta(hours=1)
-    statuses = await ServerStatus.query.where(ServerStatus.timestamp >= last_hour).gino.all()
+    statuses = await ServerStatus.query.where(ServerStatus.timestamp >= last_hour).order_by(ServerStatus.timestamp).gino.all()
 
     off_periods = []
     current_off_start = last_hour
@@ -65,7 +63,7 @@ async def get_cpu_load_last_hour():
     if current_off_start is not None:
         off_periods.append((current_off_start, datetime.now()))
 
-    cpu_loads = await CPULoad.query.where(CPULoad.timestamp >= last_hour).gino.all()
+    cpu_loads = await CPULoad.query.where(CPULoad.timestamp >= last_hour).order_by(CPULoad.timestamp).gino.all()
 
     interpolated_cpu_loads = []
     index = 0
@@ -89,6 +87,8 @@ async def get_cpu_load_last_hour():
     while index < len(cpu_loads):
         interpolated_cpu_loads.append(cpu_loads[index])
         index += 1
+        
+    #print(interpolated_cpu_loads)
 
     return interpolated_cpu_loads
 
