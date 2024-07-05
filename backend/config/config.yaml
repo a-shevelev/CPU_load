@@ -1,4 +1,8 @@
 common:
   port: 8081
 postgres:
-  database_url: postgres://postgres:1234@localhost/cpu
+  database_url: postgresql://username:password@localhost/dbname
+
+
+
+
